@@ -16,6 +16,8 @@ if not typescript_setup then
 	return
 end
 
+-- import mason-lspconfig
+
 local keymap = vim.keymap -- for conciseness
 
 -- enable keybinds only for when lsp server available
@@ -34,7 +36,7 @@ local on_attach = function(client, bufnr)
 	keymap.set("n", "<leader>d", "<cmd>Lspsaga show_cursor_diagnostics<CR>", opts) -- show diagnostics for cursor
 	keymap.set("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts) -- jump to previous diagnostic in buffer
 	keymap.set("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts) -- jump to next diagnostic in buffer
-	keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
+	keymap.set("n", "gh", "<cmd>Lspsaga hover_doc<CR>", opts) -- show documentation for what is under cursor
 	keymap.set("n", "<leader>o", "<cmd>LSoutlineToggle<CR>", opts) -- see outline on right hand side
 
 	-- typescript specific keymaps (e.g. rename file and update imports)
@@ -57,12 +59,12 @@ for type, icon in pairs(signs) do
 end
 
 -- configure html server
-lspconfig["html"].setup({
+lspconfig.html.setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
 })
 
--- configure typescript server with plugin
+-- -- configure typescript server with plugin
 typescript.setup({
 	server = {
 		capabilities = capabilities,
@@ -70,7 +72,7 @@ typescript.setup({
 	},
 })
 
--- configure css server
+-- -- configure css server
 lspconfig["cssls"].setup({
 	capabilities = capabilities,
 	on_attach = on_attach,
@@ -91,6 +93,12 @@ lspconfig["gopls"].setup({
 -- configure tailwindcss server
 lspconfig["tailwindcss"].setup({
 	capabilities = capabilities,
+	on_attach = on_attach,
+})
+
+lspconfig["tsserver"].setup({
+	capabilities = capabilities,
+	filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
 	on_attach = on_attach,
 })
 

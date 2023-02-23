@@ -159,6 +159,11 @@ _G.packer_plugins = {
     path = "/Users/tatsuro/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  ["memolist.vim"] = {
+    loaded = true,
+    path = "/Users/tatsuro/.local/share/nvim/site/pack/packer/start/memolist.vim",
+    url = "https://github.com/glidenote/memolist.vim"
+  },
   ["null-ls.nvim"] = {
     loaded = true,
     path = "/Users/tatsuro/.local/share/nvim/site/pack/packer/start/null-ls.nvim",
@@ -216,7 +221,13 @@ _G.packer_plugins = {
     path = "/Users/tatsuro/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
     url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
   },
+  ["telescope-memo.nvim"] = {
+    loaded = true,
+    path = "/Users/tatsuro/.local/share/nvim/site/pack/packer/start/telescope-memo.nvim",
+    url = "https://github.com/delphinus/telescope-memo.nvim"
+  },
   ["telescope.nvim"] = {
+    config = { "\27LJ\2\nI\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\tmemo\19load_extension\14telescope\frequire\0" },
     loaded = true,
     path = "/Users/tatsuro/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
@@ -244,6 +255,10 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: telescope.nvim
+time([[Config for telescope.nvim]], true)
+try_loadstring("\27LJ\2\nI\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0'\2\3\0B\0\2\1K\0\1\0\tmemo\19load_extension\14telescope\frequire\0", "config", "telescope.nvim")
+time([[Config for telescope.nvim]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd nvim-treesitter ]]

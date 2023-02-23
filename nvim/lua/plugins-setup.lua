@@ -61,7 +61,17 @@ return packer.startup(function(use)
 
 	-- fuzzy finding
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use({ "nvim-telescope/telescope.nvim", branch = "0.1.x" })
+	use({ "delphinus/telescope-memo.nvim" })
+	use({
+		"nvim-telescope/telescope.nvim",
+		requires = {
+			"delphinus/telescope-memo.nvim",
+		},
+		config = function()
+			require("telescope").load_extension("memo")
+		end,
+		branch = "0.1.x",
+	})
 
 	-- autocompletion
 	use("hrsh7th/nvim-cmp")
@@ -104,9 +114,16 @@ return packer.startup(function(use)
 	-- git integration
 	use("lewis6991/gitsigns.nvim") -- show line modifications on left hand side
 
-	-- markdown preview
-	use("iamcco/markdown-preview.nvim")
+	-- memolist
+	use("glidenote/memolist.vim")
 
+	-- markdown preview
+	use({
+		"iamcco/markdown-preview.nvim",
+		run = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	})
 	if packer_bootstrap then
 		require("packer").sync()
 	end

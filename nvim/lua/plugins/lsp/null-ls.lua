@@ -6,6 +6,26 @@ end
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
+-- configure cspell
+local cspell_config_dir = "~/.config/cspell"
+local cspell_data_dir = "~/.local/share/cspell"
+local cspell_files = {
+	con = vim.call("expand", cspell_config_dir .. "/cspell.json"),
+	dotfiles = vim.call("expand", cspell_config_dir .. "/dotfiles.txt"),
+	vim = vim.call("expand", cspell_data_dir .. "/vim.txt.gz"),
+	user = vim.call("expand", cspell_data_dir .. "/user.txt"),
+}
+-- if there is no vim dictionary, download vim dictionary online
+if vim.fn.filereadable(cspell_files.vim) ~= 1 then
+	local vim_dictionary_url = "https://github.com/iamcco/coc-spell-checker/raw/master/dicts/vim/vim.txt.gz"
+	io.popen("curl -fsSLo " .. cspell_files.vim .. " --create-dirs " .. vim_dictionary_url)
+end
+-- if there is no user's dictionary, create it
+if vim.fn.filereadable(cspell_files.user) ~= 1 then
+	io.popen("mkdir -p " .. cspell_data_dir)
+	io.popen("touch " .. cspell_files.user)
+end
+
 -- to setup format on save
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
