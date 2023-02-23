@@ -1,0 +1,71 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+$aws\
+$golang\
+$python\
+$nodejs\
+$time\
+\n$character
+"""
+
+add_newline = true
+scan_timeout = 30
+command_timeout=10000
+
+[character]
+success_symbol = "[❯❯❯](bold green)"
+error_symbol = "[✗](bold red)"
+vicmd_symbol = "[V](bold green)"
+
+[directory]
+format = "[$path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+format = '[$symbol$branch ]($style)'
+
+[git_state]
+rebase = "🛠 REBASING"
+revert = "💥 REVERTING"
+cherry_pick = "🍒 PICKING"
+
+[git_status]
+untracked = "🌚 UNTRACKED"
+conflicted = "💥 CONFLICTED"
+stashed = "📦 STASHED"
+modified = "📝 MODIFIED"
+staged = '🔦 STAGED'
+renamed = "🏷 RENAMED"
+deleted = "🗑 DELETED"
+
+[aws]
+format = "[$symbol$profile ]($style) "
+style = "#E47911"
+symbol = "🅰 "
+
+[golang]
+symbol = "ﳑ"
+format = '[$symbol($version) ]($style)'
+
+[package]
+disabled = true
+
+[python]
+pyenv_version_name = true
+
+[nodejs]
+symbol = ""
+format = '[$symbol($version) ]($style)'
+
+[time]
+disabled = false
+time_format = "%Y-%m-%d %H:%M" # Hour:Minute Format
+utc_time_offset = "+9"
+style ="red"
+format = '[ $time ]($style)'
+
