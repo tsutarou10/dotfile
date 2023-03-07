@@ -47,9 +47,6 @@ return packer.startup(function(use)
 	use("tpope/vim-surround")
 	use("vim-scripts/ReplaceWithRegister")
 
-	-- commenting with gc
-	use("numToStr/Comment.nvim")
-
 	-- file explorer
 	use("nvim-tree/nvim-tree.lua")
 
@@ -124,6 +121,16 @@ return packer.startup(function(use)
 			vim.fn["mkdp#util#install"]()
 		end,
 	})
+
+	-- indent-balnkline
+	use("lukas-reineke/indent-blankline.nvim")
+
+	-- colorizer
+	use("norcalli/nvim-colorizer.lua")
+
+	-- nvim-comment
+	use("terrortylor/nvim-comment")
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end
