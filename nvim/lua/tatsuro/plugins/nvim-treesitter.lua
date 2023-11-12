@@ -30,8 +30,8 @@ return {
         "tsx",
         "typescript",
         "vim",
-        "yaml",
-      },
+        "yaml"
+      }
 
       treesitter.setup({
         ensure_installed = ensure_installed,
