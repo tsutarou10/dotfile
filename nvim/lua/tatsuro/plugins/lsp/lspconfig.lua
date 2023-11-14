@@ -37,6 +37,7 @@ return {
       end
     end
 
+    -- an executed callback function when a specific buffer is connected with LSP Server
     local on_attach = function(_, bufnr)
       set_keymaps(bufnr)
     end
@@ -51,25 +52,34 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-    -- configure lua server
-    lspconfig["lua_ls"].setup({
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = {
-        Lua = {
-          -- make the language server recognize "vim" global
-          diagnostics = {
-            globals = { "vim" },
-          },
-          workspace = {
-            -- make language server aware of runtime files
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.stdpath("config") .. "/lua"] = true,
+    local server_configs = {
+      tsserver = {},
+      lua_ls = {
+        settings = {
+          Lua = {
+            -- make the language server recognize "vim" global
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              -- make language server aware of runtime files
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.stdpath("config") .. "/lua"] = true,
+              },
             },
           },
         },
       },
-    })
+      pyright = {},
+      clangd = {},
+    }
+
+    for server, config in pairs(server_configs) do
+      config.capabilities = capabilities
+      config.on_attach = on_attach
+
+      lspconfig[server].setup(config)
+    end
   end,
 }
