@@ -1,24 +1,35 @@
 return {
   {
     "stevearc/conform.nvim",
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" },
     config = function()
-      require("conform").setup({
+      local conform = require("conform")
+
+      conform.setup({
         formatters_by_ft = {
+          go = { "gofmt" },
+          javascript = { "prettier" },
+          json = { "prettier" },
           lua = { "stylua" },
           python = { "black" },
           typescript = { "prettier" },
-          javascript = { "prettier" },
-          go = { "gofmt" },
+          yaml = { "prettier" },
+        },
+        format_on_save = {
+          async = false,
+          lsp_fallback = true,
+          timeout_ms = 2000,
         },
       })
 
-      vim.api.nvim_create_autocmd("BufWritePre", {
-        group = vim.api.nvim_create_augroup("FormatOnSave", { clear = true }),
-        pattern = "*",
-        callback = function(args)
-          require("conform").format({ bufnr = args.buf })
-        end,
-      })
+      vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+        conform.format({
+          async = false,
+          lsp_fallback = true,
+          timeout_ms = 2000,
+        })
+      end, { desc = "Format file or range (in visual mode)" })
     end,
   },
 }
