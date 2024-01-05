@@ -19,7 +19,7 @@ return {
         icons = {
           package_installed = "✓",
           package_pending = "➜",
-          package_uninstalled = "✗"
+          package_uninstalled = "✗",
         },
       },
     })
@@ -57,7 +57,7 @@ return {
         "prettier",
         -- lua formatter
         "stylua",
-      }
+      },
     })
-  end
+  end,
 }
