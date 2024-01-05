@@ -9,22 +9,13 @@ opt.number = true
 opt.title = true
 
 -- tabs & indentation
-opt.tabstop = 2
-opt.shiftwidth = 2
+opt.tabstop = 4
+opt.shiftwidth = 4
 opt.expandtab = true
 opt.autoindent = true
 opt.smartindent = true
 opt.smarttab = true
 opt.breakindent = true
-
--- for python
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "*.py",
-  callback = function()
-    vim.opt_local.tabstop = 4
-    vim.opt_local.shiftwidth = 4
-  end,
-})
 
 -- line wrapping
 opt.wrap = true
